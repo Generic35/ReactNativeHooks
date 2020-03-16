@@ -1,30 +1,67 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, Button, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  View
+} from 'react-native';
 
 export default function App() {
+  const [enteredGoal, setEnteredGoal] = useState('');
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  const goalInputHandler = enteredText => {
+    setEnteredGoal(enteredText);
+  };
+
+  const addGoalHanlder = () => {
+    setCourseGoals(currentGoals => [...currentGoals, enteredGoal]);
+  };
+
   return (
-    <View>
-      <View
-        style={{
-          padding: 50,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}
-      >
+    <View style={styles.screen}>
+      <View style={styles.inputContainer}>
         <TextInput
           placeholder="Course goal"
-          style={{
-            borderBottomWidth: 1,
-            borderBottomColor: 'black',
-            padding: 10,
-            width: '80%'
-          }}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+          style={styles.input}
         />
-        <Button title="Add" />
+        <Button title="Add" onPress={addGoalHanlder} />
       </View>
+      <ScrollView>
+        {courseGoals.map((goal, i) => (
+          <View key={i} style={styles.listItem}>
+            <Text>{goal}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    padding: 50
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    padding: 10,
+    width: '80%'
+  },
+  listItem: {
+    padding: 10,
+    backgroundColor: '#ccc',
+    borderColor: '#000',
+    borderWidth: 1,
+    marginVertical: 10
+  }
+});
