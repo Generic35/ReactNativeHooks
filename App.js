@@ -19,6 +19,13 @@ export default function App() {
       { key: Math.random().toString(), value: enteredGoal }
     ]);
   };
+  const removeGoal = goalId => {
+    setCourseGoals(currentGoals => {
+      return currentGoals.filter(goal => {
+        return goal.key !== goalId;
+      });
+    });
+  };
 
   return (
     <View style={styles.screen}>
@@ -27,9 +34,8 @@ export default function App() {
         data={courseGoals}
         renderItem={itemData => (
           <GoalItem
-            onPress={() => {
-              console.log('Does this work?');
-            }}
+            onPress={removeGoal}
+            id={itemData.item.key}
             title={itemData.item.value}
           />
         )}
