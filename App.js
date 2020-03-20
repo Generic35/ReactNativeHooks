@@ -21,10 +21,17 @@ export default function App() {
       });
     });
   };
+  const cancelAddGoal = () => {
+    setIsAddGoal(false);
+  };
 
   return (
     <View style={styles.screen}>
-      <GoalInput visible={isAddGoal} onAdd={addGoalHandler} />
+      <GoalInput
+        visible={isAddGoal}
+        onAdd={addGoalHandler}
+        onCancel={cancelAddGoal}
+      />
       <Button
         title="Add Goal"
         onPress={() => {
