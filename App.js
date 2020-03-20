@@ -12,6 +12,7 @@ export default function App() {
       ...currentGoals,
       { key: Math.random().toString(), value: enteredGoal }
     ]);
+    setIsAddGoal(false);
   };
   const removeGoal = goalId => {
     setCourseGoals(currentGoals => {
